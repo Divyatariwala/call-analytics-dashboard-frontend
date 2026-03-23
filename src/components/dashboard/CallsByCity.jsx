@@ -6,8 +6,6 @@ export default function CallsByCity({ data = [], darkMode }) {
   if (!data.length) return <p className="text-center">Loading...</p>;
 
   const totalCalls = data.reduce((sum, item) => sum + item.calls, 0);
-  const tooltipBg = darkMode ? "#1f2937" : "#fff";
-  const tooltipColor = darkMode ? "#d1d5db" : "#374151";
 
   return (
     <div className="flex justify-center items-center w-full relative h-[270px] sm:h-[320px] md:h-[350px] lg:h-[370px]">
@@ -29,9 +27,7 @@ export default function CallsByCity({ data = [], darkMode }) {
           </Pie>
           <Tooltip
             formatter={(value, name, props) => [`${value} calls`, props.payload.city]}
-            contentStyle={{ backgroundColor: tooltipBg, borderRadius: 8, border: 'none' }}
-            labelStyle={{ color: tooltipColor }}
-            itemStyle={{ color: tooltipColor }}
+            contentStyle={{ borderRadius: 8, border: 'none' }}
           />
         </PieChart>
       </ResponsiveContainer>
