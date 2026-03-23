@@ -159,7 +159,7 @@ export default function DashboardPage() {
                               bg-gray-50 dark:bg-gray-800 
                               dark:shadow-gray-900/30 
                               transition-colors duration-500 w-full">
-            <RecentCallsTable key={searchInput + selectedCity} calls={filteredCalls} loading={loading} />
+            <RecentCallsTable calls={filteredCalls} loading={loading} />
           </section>
         </>
       )}
