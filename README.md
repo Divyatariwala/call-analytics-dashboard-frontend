@@ -38,6 +38,6 @@ The project uses modern web technologies for a fast, responsive, and interactive
 
 ## Deployment
 Access the live project here:  
-[Call Analytics Dashboard Live](https://call-analytics-dashboard-murex.vercel.app/)
+[Call Analytics Dashboard Live](https://call-analytics-dashboard-frontend.vercel.app/)
 
 ---
