@@ -41,7 +41,7 @@ export default function DashboardLayout({ children }) {
     <div className={`flex min-h-screen relative overflow-hidden ${darkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}>
 
       {/* Background blobs like login */}
-      <div className="absolute w-[500px] h-[500px] bg-purple-600 rounded-full blur-[150px] top-[-120px] left-[-100px] opacity-30 animate-pulse-slow" style={{ zIndex: -10 }}></div>
+      <div className="absolute w-[500px] h-[500px] bg-purple-600 rounded-full blur-[150px] top-[-120px] left-[-100px] opacity-30 animate-pulse-slow pointer-events-none -z-10"></div>
       <div className="absolute w-[400px] h-[400px] bg-pink-500 rounded-full blur-[150px] bottom-[-120px] right-[-100px] opacity-30 animate-pulse-slow"></div>
 
       {/* Sidebar */}
