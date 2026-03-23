@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from "react";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 
-export default function RecentCallsTable({ calls = [], loading = false, darkMode }) {
+export default function RecentCallsTable({ calls = [], loading = false }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const recordsPerPage = 50;
@@ -20,9 +20,6 @@ export default function RecentCallsTable({ calls = [], loading = false, darkMode
     const end = start + recordsPerPage;
     return filteredCalls.slice(start, end);
   }, [filteredCalls, currentPage]);
-
-  const textColor = darkMode ? "text-gray-200" : "text-gray-900";
-  const bgColor = darkMode ? "bg-gray-800" : "bg-white";
 
   if (loading) return <p className="text-center py-6">Loading calls...</p>;
   if (!calls.length) return <p className="text-center py-6">No calls found.</p>;
@@ -49,22 +46,25 @@ export default function RecentCallsTable({ calls = [], loading = false, darkMode
     return pages;
   };
 
-  // Function to determine button class based on type
+  // Clean pagination button styles without dark mode
   const paginationButtonClass = ({ isActive = false, isDisabled = false }) => {
-    let base = "px-3 py-1 rounded transition-colors duration-200 ";
-    let normal = darkMode
-      ? "bg-gray-700 text-gray-200 hover:bg-gray-600"
-      : "bg-gray-300 text-gray-900 hover:bg-gray-400";
-
-    if (isActive) return "bg-blue-500 text-white";
-    if (isDisabled) return "opacity-50 cursor-not-allowed";
-    return base + normal;
+    const base = "px-4 py-1 rounded-lg font-medium transition-all duration-200 ";
+    
+    if (isActive) {
+      return base + "bg-blue-600 text-white shadow-md hover:bg-blue-700 ring-2 ring-blue-300";
+    }
+    
+    if (isDisabled) {
+      return base + "bg-gray-300 text-gray-400 cursor-not-allowed";
+    }
+    
+    return base + "bg-gray-200 text-gray-900 hover:bg-gray-300";
   };
 
   return (
     <div className="w-full">
       <div className="overflow-x-auto">
-        <Table className={`w-full min-w-[700px] ${bgColor} ${textColor}`}>
+        <Table className="w-full min-w-[700px] bg-white text-gray-900">
           <TableHeader>
             <TableRow>
               {["Caller","Caller Number","Receiver","City","Duration (s)","Cost (£)","Start Time","Call Status"].map(head => (
