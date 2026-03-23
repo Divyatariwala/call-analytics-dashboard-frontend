@@ -1,25 +1,14 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  ResponsiveContainer
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
 
-export default function CostChart({ data, darkMode }) {
+export default function CostChart({ data }) {
   const isMobile = window.innerWidth < 640;
-  const axisColor = darkMode ? "#d1d5db" : "#374151";
-  const gridColor = darkMode ? "#374151" : "#e5e7eb";
-  const bgColor = darkMode ? "#1f2937" : "#fff";
+  const axisColor = "#374151";
+  const gridColor = "#e5e7eb";
+  const bgColor = "#fff";
 
   return (
     <ResponsiveContainer width="100%" height={isMobile ? 250 : 350}>
-      <BarChart
-        data={data}
-        margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
-      >
+      <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
         <CartesianGrid stroke={gridColor} strokeDasharray="3 3" />
         <XAxis
           dataKey="city"

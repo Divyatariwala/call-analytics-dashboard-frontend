@@ -2,7 +2,7 @@ import { PieChart, Pie, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 const COLORS = ["#6366f1", "#10b981", "#f97316", "#ef4444", "#14b8a6", "#8b5cf6"];
 
-export default function CallsByCity({ data = [], darkMode }) {
+export default function CallsByCity({ data = [] }) {
   if (!data.length) return <p className="text-center">Loading...</p>;
 
   const totalCalls = data.reduce((sum, item) => sum + item.calls, 0);
@@ -22,7 +22,7 @@ export default function CallsByCity({ data = [], darkMode }) {
             paddingAngle={6}
           >
             {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke={darkMode ? "#111827" : "#fff"} strokeWidth={2} />
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="#fff" strokeWidth={2} />
             ))}
           </Pie>
           <Tooltip
@@ -35,7 +35,7 @@ export default function CallsByCity({ data = [], darkMode }) {
       {/* Center Label */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
         <div className="text-lg sm:text-xl md:text-2xl font-bold text-black">{totalCalls}</div>
-        <div className={`text-xs sm:text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>Total Calls</div>
+        <div className="text-xs sm:text-sm text-gray-500">Total Calls</div>
       </div>
     </div>
   );
