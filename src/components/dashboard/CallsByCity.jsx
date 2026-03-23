@@ -34,7 +34,7 @@ export default function CallsByCity({ data = [], darkMode }) {
 
       {/* Center Label */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-        <div className="text-lg sm:text-xl md:text-2xl font-bold">{totalCalls}</div>
+        <div className="text-lg sm:text-xl md:text-2xl font-bold text-black">{totalCalls}</div>
         <div className={`text-xs sm:text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>Total Calls</div>
       </div>
     </div>

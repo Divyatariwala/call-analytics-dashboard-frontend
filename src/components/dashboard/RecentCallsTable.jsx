@@ -27,7 +27,6 @@ export default function RecentCallsTable({ calls = [], loading = false, darkMode
   if (loading) return <p className="text-center py-6">Loading calls...</p>;
   if (!calls.length) return <p className="text-center py-6">No calls found.</p>;
 
-  // Responsive pagination: show fewer pages on small screens
   const getPagination = () => {
     const pages = [];
     const maxVisible = screenWidth < 640 ? 3 : 5; // mobile: 3 pages, desktop: 5
@@ -50,13 +49,27 @@ export default function RecentCallsTable({ calls = [], loading = false, darkMode
     return pages;
   };
 
+  // Function to determine button class based on type
+  const paginationButtonClass = ({ isActive = false, isDisabled = false }) => {
+    let base = "px-3 py-1 rounded transition-colors duration-200 ";
+    let normal = darkMode
+      ? "bg-gray-700 text-gray-200 hover:bg-gray-600"
+      : "bg-gray-300 text-gray-900 hover:bg-gray-400";
+
+    if (isActive) return "bg-blue-500 text-white";
+    if (isDisabled) return "opacity-50 cursor-not-allowed";
+    return base + normal;
+  };
+
   return (
     <div className="w-full">
       <div className="overflow-x-auto">
         <Table className={`w-full min-w-[700px] ${bgColor} ${textColor}`}>
           <TableHeader>
             <TableRow>
-              {["Caller","Caller Number","Receiver","City","Duration (s)","Cost (£)","Start Time","Call Status"].map(head => <TableHead key={head}>{head}</TableHead>)}
+              {["Caller","Caller Number","Receiver","City","Duration (s)","Cost (£)","Start Time","Call Status"].map(head => (
+                <TableHead key={head}>{head}</TableHead>
+              ))}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -76,13 +89,12 @@ export default function RecentCallsTable({ calls = [], loading = false, darkMode
         </Table>
       </div>
 
-      {/* Responsive Pagination */}
       {totalPages > 1 && (
-        <div className="flex flex-wrap justify-center gap-1 mt-4">
+        <div className="flex flex-wrap justify-center gap-2 mt-4">
           <button
-            onClick={() => setCurrentPage(prev => Math.max(prev-1,1))}
-            disabled={currentPage===1}
-            className="px-2 py-1 rounded bg-gray-300 dark:bg-gray-700 hover:opacity-80 disabled:opacity-50"
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className={paginationButtonClass({ isDisabled: currentPage === 1 })}
           >
             Prev
           </button>
@@ -92,16 +104,16 @@ export default function RecentCallsTable({ calls = [], loading = false, darkMode
               key={idx}
               onClick={() => typeof page === "number" && setCurrentPage(page)}
               disabled={page === "..."}
-              className={`px-2 py-1 rounded ${currentPage===page ? 'bg-blue-500 text-white' : 'bg-gray-300 dark:bg-gray-700 hover:opacity-80'}`}
+              className={paginationButtonClass({ isActive: page === currentPage, isDisabled: page === "..." })}
             >
               {page}
             </button>
           ))}
 
           <button
-            onClick={() => setCurrentPage(prev => Math.min(prev+1,totalPages))}
-            disabled={currentPage===totalPages}
-            className="px-2 py-1 rounded bg-gray-300 dark:bg-gray-700 hover:opacity-80 disabled:opacity-50"
+            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+            className={paginationButtonClass({ isDisabled: currentPage === totalPages })}
           >
             Next
           </button>
