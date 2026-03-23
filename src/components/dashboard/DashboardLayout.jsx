@@ -40,9 +40,9 @@ export default function DashboardLayout({ children }) {
   return (
     <div className={`flex min-h-screen relative overflow-hidden ${darkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}>
 
-      {/* Background blobs like login */}
+      {/* Background blobs (non-interactive) */}
       <div className="absolute w-[500px] h-[500px] bg-purple-600 rounded-full blur-[150px] top-[-120px] left-[-100px] opacity-30 animate-pulse-slow pointer-events-none -z-10"></div>
-      <div className="absolute w-[400px] h-[400px] bg-pink-500 rounded-full blur-[150px] bottom-[-120px] right-[-100px] opacity-30 animate-pulse-slow"></div>
+      <div className="absolute w-[400px] h-[400px] bg-pink-500 rounded-full blur-[150px] bottom-[-120px] right-[-100px] opacity-30 animate-pulse-slow pointer-events-none -z-10"></div>
 
       {/* Sidebar */}
       <aside
@@ -54,13 +54,11 @@ export default function DashboardLayout({ children }) {
           flex flex-col shadow-2xl rounded-r-3xl
         `}
       >
-        {/* Sidebar Header */}
         <div className="p-6 border-b border-white/20 flex justify-between items-center">
           <h1 className="text-xl sm:text-2xl font-bold">Call Analytics</h1>
           <button className="lg:hidden text-xl" onClick={() => setSidebarOpen(false)}>✕</button>
         </div>
 
-        {/* Navigation */}
         <nav className="flex flex-col gap-2 mt-6 px-4">
           {navItems.filter(item => item.roles.includes(role)).map((item, idx) => (
             <a key={idx} href="#"
@@ -73,7 +71,6 @@ export default function DashboardLayout({ children }) {
           ))}
         </nav>
 
-        {/* Logout button - fixed width and centered */}
         <button
           onClick={handleLogout}
           className="flex items-center mt-4 justify-center w-[225px] mx-auto mb-6 px-3 py-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl shadow hover:scale-105 transition text-sm"
@@ -81,17 +78,18 @@ export default function DashboardLayout({ children }) {
           <FiLogOut className="mr-2" /> Logout
         </button>
 
-        {/* Footer */}
         <div className="p-4 text-xs text-white/50 mt-auto">© 2026 Call Analytics</div>
       </aside>
 
-      {/* Overlay for mobile */}
+      {/* Mobile overlay */}
       {sidebarOpen && <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />}
 
-      {/* Main Content */}
-      <div className="flex flex-col flex-1 min-h-screen min-w-0 p-6 md:p-8 space-y-6">
+      {/* Main content wrapper */}
+      <div className="flex flex-col flex-1 min-h-screen min-w-0 p-6 md:p-8 space-y-6 relative z-10">
+        
         {/* Header */}
-        <header className={`flex items-center justify-between px-4 py-4 rounded-xl transition-colors duration-500
+        <header className={`
+          flex items-center justify-between px-4 py-4 rounded-xl transition-colors duration-500
           ${darkMode ? "bg-black/40 backdrop-blur-2xl border border-white/20" : "bg-white/40 backdrop-blur-2xl border border-gray-200"}
         `}>
           <div className="flex items-center gap-4">
@@ -102,7 +100,6 @@ export default function DashboardLayout({ children }) {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Theme Toggle */}
             <button
               onClick={() => setDarkMode(!darkMode)}
               className={`p-2 rounded-full shadow hover:scale-110 transition ${darkMode ? "bg-white/20" : "bg-gray-200"}`}
@@ -117,8 +114,9 @@ export default function DashboardLayout({ children }) {
           </div>
         </header>
 
-        {/* Page content - glass card style */}
-        <main className={`p-6 rounded-3xl shadow-[0_0_50px_rgba(168,85,247,0.2)] transition-all duration-500
+        {/* Page content */}
+        <main className={`
+          p-6 rounded-3xl shadow-[0_0_50px_rgba(168,85,247,0.2)] transition-all duration-500
           ${darkMode ? "bg-black/40 border border-white/20 backdrop-blur-2xl" : "bg-white border border-gray-200 backdrop-blur-2xl"}
         `}>
           {children}
